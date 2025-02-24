@@ -23,15 +23,19 @@ export const App = () => {
   const [sortBy, setSortBy] = useState('');
 
   const handleSortAlphabetically = () => {
-    setGoods([...goods].sort((a, b) => a.localeCompare(b)));
+    const sortedGoods = [...goodsFromServer].sort((a, b) => a.localeCompare(b));
+
+    setGoods(isReversed ? [...sortedGoods].reverse() : sortedGoods);
     setSortBy(ALPHABETICALY);
-    setIsReversed(false);
   };
 
-  const handlrSortByLength = () => {
-    setGoods([...goods].sort((a, b) => a.length - b.length));
+  const handleSortByLength = () => {
+    const sortedGoods = [...goodsFromServer].sort(
+      (a, b) => a.length - b.length,
+    );
+
+    setGoods(isReversed ? [...sortedGoods].reverse() : sortedGoods);
     setSortBy(LENGTH);
-    setIsReversed(false);
   };
 
   const handleReverse = () => {
@@ -59,7 +63,7 @@ export const App = () => {
         <button
           type="button"
           className={`button is-success ${sortBy === LENGTH ? '' : 'is-light'}`}
-          onClick={handlrSortByLength}
+          onClick={handleSortByLength}
         >
           Sort by length
         </button>
